@@ -2,56 +2,45 @@
 //Proyecto1. Serializadodor del Regitro Desplazable de 8 bits	
 //I Ciclo 2018
 
-module serializador(rst,enb,data,clk,out, tx_frame_started);
+module serializador(enb,data,clk,out);
 
 	//Entradas // enb =1 palabra valida, enb=0 invalida
-	input clk, enb, rst; 
-	input reg [7:0] data;	//	Data
+	input clk, enb; 
+	input [7:0] data;	//	Data
 	
 	//Variables Temporales / Registros Internos
-	reg [8:0] temp;
+	reg rst=1;
+	reg [7:0] temp;
 	reg [3:0] counter;
 	
 	//Salida
 	output reg out;
-	output reg tx_frame_started;
-	
+
 //Control del Path.
-always @(posedge clk, posedge rst ) begin
-	if (rst) begin
+always @(posedge clk or negedge rst ) begin
+	if (rst==1) begin
+	temp <= data;
 	counter <= 4'b0000;
-	tx_frame_started <= 1'b0;
-	end
-	//tx_frame_started puede ser 1 después que el contador es zero
-	else if (counter == 4'b0)begin
-	tx_frame_started <= 1'b1;
-	counter <= counter + 1'b1;
+//	counter <= counter + 1'b1;
 	end
 	//Cuenta de 0 a 8.
-	else if (counter < 4'b1000) begin
-	tx_frame_started <= 1'b0;
-	counter <= counter + 1'b1;
-	end
-	// Restaurar la Cuenta.
-	else
-	begin
+	else begin
+		out <= temp[7-counter];
+		counter <= counter + 1'b1;
+		end
+	if (counter == 4'b0111) begin
+	rst 	<= 1'b1;		// Restaurar la Cuenta.
 	counter <= 4'b0000;
-	tx_frame_started <= 1'b0;
 	end
+	else
+		rst = 0;
 end
-
 
 //Data Path.
-always @(posedge clk, posedge rst) begin
-	if (rst)
-	temp <= 8'h00;
-	else
-	if (tx_frame_started)
-	temp <= data;
-	else
-	temp <= {1'b0, temp[6:1]};
-end
+//always @(posedge clk) begin
+	//Datos serializados.
+	//out <= temp[counter];
+//end
 
+endmodule
 
-//Datos serializados.
-assign out = temp[0];

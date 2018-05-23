@@ -1,0 +1,115 @@
+$date
+	Wed May 23 10:40:18 2018
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$var wire 1 ! out $end
+$var wire 1 " enb $end
+$var wire 8 # data [7:0] $end
+$var wire 1 $ clk $end
+$scope module ser1 $end
+$var wire 1 " enb $end
+$var wire 8 % data [7:0] $end
+$var wire 1 $ clk $end
+$var reg 4 & counter [3:0] $end
+$var reg 1 ! out $end
+$var reg 1 ' rst $end
+$var reg 8 ( temp [7:0] $end
+$upscope $end
+$scope module test1 $end
+$var wire 1 ! out $end
+$var reg 1 $ clk $end
+$var reg 8 ) data [7:0] $end
+$var reg 1 " enb $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b10001000 )
+bx (
+1'
+bx &
+b10001000 %
+0$
+b10001000 #
+1"
+x!
+$end
+#2
+b0 &
+b10001000 (
+0'
+1$
+#4
+0$
+#6
+b1 &
+1!
+1$
+#8
+0$
+#10
+b10 &
+0!
+1$
+#12
+0$
+#14
+b11 &
+1$
+#16
+0$
+#18
+b100 &
+1$
+#20
+0$
+#22
+b101 &
+1!
+1$
+#24
+0$
+#26
+b110 &
+0!
+1$
+#28
+0$
+#30
+b111 &
+1$
+#32
+0$
+#34
+1'
+b0 &
+1$
+#36
+0$
+#38
+0'
+1$
+#40
+0$
+#42
+b1 &
+1!
+1$
+#44
+0$
+#46
+b10 &
+0!
+1$
+#48
+0$
+#50
+b11 &
+1$
