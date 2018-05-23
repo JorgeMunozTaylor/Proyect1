@@ -1,8 +1,8 @@
 module mux (
   input clk,
-  input D_in,
-  input control,
-  output reg D_out,
+  input [7:0] D_in,
+  input [7:0] control,
+  output reg [7:0] D_out,
   output reg valid
   );
   parameter [7:0] COM = 8'hbc,

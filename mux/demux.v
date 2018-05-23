@@ -2,7 +2,8 @@ module demux (
   input valid_in,
   input [7:0] data_in,
   input clk,
-  output reg data_out
+  output reg [7:0] data_out,
+  output reg [7:0] control
   );
 
   parameter [7:0] COM = 8'hbc,
@@ -14,22 +15,29 @@ module demux (
 
   always @(posedge clk) begin
     if (valid_in) begin
-
+      
       case (data_in)
+        COM: begin
+          control <= COM;
+        end
+        SKP: begin
+          control <= SKP;
+        end
         STP: begin
-          data_out <= IDL;
+          control <= STP;
         end
         SDP: begin
-          data_out <= IDL;
+          control <= SDP;
         end
         END: begin
-          data_out <= IDL;
+          control <= END;
         end
         default: begin
           data_out <= data_in;
+          control <= 8'b0;
         end
       endcase
-
+      
     end else begin
       data_out <= IDL;
     end
