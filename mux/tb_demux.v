@@ -1,6 +1,6 @@
 `include "demux.v"
 `include "prueba_demux.v"
-`include "generador_d_demux.v"
+//`include "generador_d_demux.v"
 
 module tb;
 
@@ -21,14 +21,14 @@ module tb;
         .data(D),
         .valid(valid),
         .clk_1m(clk_1m),
-        .clk_250k(clk_250k),
+        .clk_250k(clk_250k)
     );
-
+    /*
     generador_d_demux gdm(
         .clk(clk_250k),
         .valid(valid),
         .data(D)
-    );
+    );*/
 
 
 endmodule
