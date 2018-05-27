@@ -5,14 +5,14 @@ module test
     parameter BITS  = `BITS-1
 )
 (
-    output  reg                     CLK,
-    output  reg [BITS:0]            D,
-    output  reg                     DK,
-    input       [BITS:0]            LANE0,
-    input       [BITS:0]            LANE1,
-    input       [BITS:0]            LANE2,
-    input       [BITS:0]            LANE3,
-    input                           o_DK
+    output  reg             CLK,
+    output  reg [BITS:0]    D,
+    output  reg             DK,
+    input       [BITS:0]    LANE0,
+    input       [BITS:0]    LANE1,
+    input       [BITS:0]    LANE2,
+    input       [BITS:0]    LANE3,
+    input                   o_DK
 );
     localparam [7:0]    STP     = 8'hfb,
                         SDP     = 8'h5c,
