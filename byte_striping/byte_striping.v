@@ -44,109 +44,15 @@ module byte_strip #(
         else                            CONTADOR_DE_LANES <= 0;
 
     always @(posedge CLK) 
-        if      (CONTADOR_DE_LANES==2'b00 && D==STP)        ACT_LANE[CONTADOR_DE_LANES] = D;
-        else if (CONTADOR_DE_LANES==2'b00 && D==SDP)        ACT_LANE[CONTADOR_DE_LANES] = D;
-        else if (CONTADOR_DE_LANES==LANES && D==END)  ACT_LANE[CONTADOR_DE_LANES] = D;
-        else if (CONTADOR_DE_LANES==LANES && D==EDB)  ACT_LANE[CONTADOR_DE_LANES] = D;
+        if ( (CONTADOR_DE_LANES!=2'b00 && D!=SDP && D!=STP) ||
+             (CONTADOR_DE_LANES!=LANES && D!=END && D!=EDB) )
+                ACT_LANE[CONTADOR_DE_LANES] = D;
 
-        else if (CONTADOR_DE_LANES==2'b00    && D!=STP && D!=SDP && D!=END && D!=EDB)        
-            ACT_LANE[CONTADOR_DE_LANES] = D;
-        else if (CONTADOR_DE_LANES==LANES && D!=STP && D!=SDP && D!=END && D!=EDB)  
-            ACT_LANE[CONTADOR_DE_LANES] = D;
+        else if ( (CONTADOR_DE_LANES==2'b00 && (D==SDP || D==STP) ) ||
+                  (CONTADOR_DE_LANES==LANES && (D==END || D==EDB) ) )
+                ACT_LANE[CONTADOR_DE_LANES] = D;
+        else begin
+            $display ("ERROR:STP/SDP solo pueden ir en el lane0, END/EDB en el lane %d %dns",LANES, $time);  
+        end
 
-        else if (CONTADOR_DE_LANES!=2'b00 && CONTADOR_DE_LANES != LANES)          
-            ACT_LANE[CONTADOR_DE_LANES] = (
-                                            D!=STP ||
-                                            D!=SDP ||
-                                            D!=END ||
-                                            D!=EDB 
-                                            )?D:IDL;
-    
-  
-
-
-
-
-    /*     
-    always @(posedge CLK)   
-        case(D)
-            STP: if(CONTADOR_DE_LANES == 0) 
-                    if (DK == 0)
-                        ACT_LANE[CONTADOR_DE_LANES] = D;
-
-                    else begin 
-                        $display("ERROR: DK debe ser 0 en el START");
-                        $finish;
-                        end
-                 else   begin 
-                        $display("ERROR: STP solo puede ir en el lane 0");
-                        $finish;
-                        end
-
-            SDP: if(CONTADOR_DE_LANES == 0) 
-                    if (DK == 0)
-                        ACT_LANE[CONTADOR_DE_LANES] = D;
-              
-                    else begin 
-                        $display("ERROR: DK debe ser 0 en el START");
-                        $finish;
-                        end
-
-                 else begin 
-                    $display("ERROR: SDP solo puede ir en el lane 0");
-                    $finish;
-                    end
-
-            END: if(CONTADOR_DE_LANES == LANES-1) 
-                    if (DK == 0)
-                        ACT_LANE[CONTADOR_DE_LANES] = D; 
-      
-                    else begin 
-                        $display("ERROR: DK debe ser 0 en el END");
-                        $finish;
-                        end
-
-                 else begin 
-                    $display("ERROR: END solo puede ir en el lane %d",LANES);
-                    $finish;
-                    end
-
-            EDB: if(CONTADOR_DE_LANES == LANES-1)
-                    if (DK == 0)
-                        ACT_LANE[CONTADOR_DE_LANES] = D;
-
-                    else begin 
-                        $display("ERROR: DK debe ser 0 en el END.");
-                        $finish;
-                        end
-                 else begin 
-                    $display("ERROR: EDB solo puede ir en el lane %d",LANES);
-                    $finish;
-                    end
-
-            SKP: if (DK == 1)
-                    ACT_LANE[CONTADOR_DE_LANES] = D;
-   
-                 else begin 
-                    $display("ERROR: DK debe ser 1 en los D.");
-                    $finish;
-                    end
-
-            IDL: if (DK == 1)
-                        ACT_LANE[CONTADOR_DE_LANES] = D;
-      
-                 else begin 
-                    $display("ERROR: DK debe ser 1 en los D.");
-                    $finish;
-                    end
-            
-            default: if(DK == 1)
-                        ACT_LANE[CONTADOR_DE_LANES] = D;
-      
-                    else begin 
-                        $display("ERROR: DK debe ser 1 en los D.");
-                        $finish;
-                        end
-            endcase 
-*/
 endmodule
