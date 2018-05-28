@@ -22,20 +22,33 @@ module test
                         SKP     = 8'h1c,
                         IDL     = 8'h7c;
 
-    initial CLK = 0;
-    always  #1 CLK = !CLK;
+    initial CLK     = 0;
+    always  #1 CLK  = !CLK;
 
-    initial begin
+    initial 
+    repeat(10)
+        begin
             D = STP;
         #2  D = 00110011;
         #2  D = 11111111;
         #2  D = END;
+        #2  D = SDP;
+        #2  D = 01010101;
+        #2  D = 01000001;
+        #2  D = EDB;
+        #2;
     end
 
-    initial begin
+    initial 
+    repeat(10)
+    begin
             DK = 0;
         #2  DK = 1;
+        #2  DK = 1;
+        #2  DK = 0;
+        #4  DK = 1;
         #4  DK = 0;
+        #2;
     end
 
     initial begin
@@ -43,5 +56,5 @@ module test
         $dumpvars;
     end
 
-    initial #30 $finish;
+    initial #300 $finish;
 endmodule

@@ -43,16 +43,19 @@ module byte_strip #(
         if(CONTADOR_DE_LANES <= LANES)  CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
         else                            CONTADOR_DE_LANES <= 0;
 
-    always @(posedge CLK) 
-        if ( (CONTADOR_DE_LANES!=2'b00 && D!=SDP && D!=STP) ||
-             (CONTADOR_DE_LANES!=LANES && D!=END && D!=EDB) )
-                ACT_LANE[CONTADOR_DE_LANES] = D;
+    always @(posedge CLK)
+        case(DK) 
+            0:  if ( CONTADOR_DE_LANES==2'b00 && D!=END && D!=EDB )
+                    ACT_LANE[CONTADOR_DE_LANES] = D;
 
-        else if ( (CONTADOR_DE_LANES==2'b00 && (D==SDP || D==STP) ) ||
-                  (CONTADOR_DE_LANES==LANES && (D==END || D==EDB) ) )
-                ACT_LANE[CONTADOR_DE_LANES] = D;
-        else begin
-            $display ("ERROR:STP/SDP solo pueden ir en el lane0, END/EDB en el lane %d %dns",LANES, $time);  
-        end
+                else if ( CONTADOR_DE_LANES==LANES && D!=STP && D!=SDP )
+                    ACT_LANE[CONTADOR_DE_LANES] = D;
+
+            1:  if (CONTADOR_DE_LANES!=2'b00   && 
+                    CONTADOR_DE_LANES!=LANES   && 
+                    D!=END && D!=EDB && D!=SDP && 
+                    D!=STP)
+                        ACT_LANE[CONTADOR_DE_LANES] = D;
+        endcase
 
 endmodule
