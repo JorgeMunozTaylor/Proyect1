@@ -52,23 +52,34 @@ module byte_strip #(
 
     always @(posedge CLK)
         case(DK) 
-            0:  if ( CONTADOR_DE_LANES==2'b00 && (D==STP || D==SDP) ) begin
+            0:  if ( CONTADOR_DE_LANES==2'b00 && (D==STP || D==SDP) )      begin
                     ACT_LANE[CONTADOR_DE_LANES] = D;
                     ACT_DK  [CONTADOR_DE_LANES] = DK;
+                    end
+
+                else if ( CONTADOR_DE_LANES==2'b00 && (D!=STP || D!=SDP) ) begin
+                    $display ("ERROR 1 %dns", $time);
+                    $finish;
                     end
 
                 else if ( CONTADOR_DE_LANES==LANES && (D==END || D==EDB) ) begin
                     ACT_LANE[CONTADOR_DE_LANES] = D;
                     ACT_DK  [CONTADOR_DE_LANES] = DK;
                     end
-                
-                else $display ("ERROR 1");
+
+                else if ( CONTADOR_DE_LANES==LANES && (D!=END || D!=EDB) ) begin
+                    $display ("ERROR 2 %dns", $time);
+                    $finish;
+                    end
 
             1: if (D!=STP && D!=SDP && D!=END && D!=EDB) begin
                     ACT_LANE[CONTADOR_DE_LANES] = D;
                     ACT_DK  [CONTADOR_DE_LANES] = DK;
                     end 
-                else $display ("ERROR 2");
+                else begin
+                    $display ("ERROR 3 %dns", $time);
+                    $finish;
+                    end
     
         endcase
 

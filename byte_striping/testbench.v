@@ -4,6 +4,11 @@
     `include "byte_striping.v"
 `endif
 
+`ifndef BYTE_UNSTRIPING_V
+    `define BYTE_UNSTRIPING_V
+    `include "byte_unstriping.v"
+`endif
+
 `ifndef TEST_V
     `define TEST_V
     `include "test.v"
@@ -15,20 +20,23 @@
 `endif
 
 module tb;
-    localparam LANES = `LANES;
+    //localparam LANES = `LANES;
     localparam BITS  = `BITS-1; 
 
-    wire                            CLK;
-    wire    [BITS:0]                D;
-    wire                            DK;
-    wire    [BITS:0]                LANE0;
-    wire    [BITS:0]                LANE1;
-    wire    [BITS:0]                LANE2;
-    wire    [BITS:0]                LANE3;
-    wire                            DK_0;
-    wire                            DK_1;
-    wire                            DK_2;
-    wire                            DK_3;
+    wire                CLK;
+    wire    [BITS:0]    D;
+    wire                DK;
+    wire    [BITS:0]    LANE0;
+    wire    [BITS:0]    LANE1;
+    wire    [BITS:0]    LANE2;
+    wire    [BITS:0]    LANE3;
+    wire                DK_0;
+    wire                DK_1;
+    wire                DK_2;
+    wire                DK_3;
+
+    wire    [BITS:0]    u_d;
+    wire                u_dk;
 
     test prueba_bs(
         .CLK    (CLK),
@@ -41,7 +49,9 @@ module tb;
         .DK_0   (DK_0),
         .DK_1   (DK_1),
         .DK_2   (DK_2),
-        .DK_3   (DK_3)
+        .DK_3   (DK_3),
+        .U_D    (u_d),
+        .U_DK   (u_dk)
     );
 
     byte_strip byte_striping(
@@ -56,6 +66,21 @@ module tb;
         .DK_1   (DK_1),
         .DK_2   (DK_2),
         .DK_3   (DK_3)
+    );
+
+    byte_unstrip byte_unstriping(
+        .CLK    (CLK),
+        .LANE0  (LANE0),
+        .LANE1  (LANE1),
+        .LANE2  (LANE2),
+        .LANE3  (LANE3),
+        .DK_0   (DK_0),
+        .DK_1   (DK_1),
+        .DK_2   (DK_2),
+        .DK_3   (DK_3),
+    
+        .D    (u_d),
+        .DK   (u_dk)
     );
 
 endmodule

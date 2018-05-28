@@ -15,7 +15,10 @@ module test
     input                    DK_0,
     input                    DK_1,
     input                    DK_2,
-    input                    DK_3
+    input                    DK_3,
+
+    input       [BITS:0]     U_D,
+    input                    U_DK
 );
     localparam [7:0]    STP     = 8'hfb,
                         SDP     = 8'h5c,
@@ -47,8 +50,7 @@ module test
     begin
             DK = 0;
         #2  DK = 1;
-        #2  DK = 1;
-        #2  DK = 0;
+        #4  DK = 0;
         #4  DK = 1;
         #4  DK = 0;
         #2;
