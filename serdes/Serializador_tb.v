@@ -3,16 +3,17 @@
 //I Ciclo 2018
 
 //Definicion del modulo
-module testbench();
+module testbench;
 
 wire [7:0] data;
 wire enb;
 wire out;
 wire clk;
+wire DK;
 
 //Intanciando Modulos
-tester test1(enb,data,clk,out);
-serializador ser1(enb,data,clk,out);
+tester test1(enb,data,clk,DK,out);
+serializador ser1(enb,data,clk,DK,out);
 
 //Resultados en Terminal
 initial

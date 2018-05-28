@@ -1,41 +1,31 @@
 //IE-0523 Circuitos Digitales II
 //Proyecto1. Deserializadodor de 8 bits	
 //I Ciclo 2018
+`ifndef BITS
+	`define BITS 8
+`endif
 
-module deserializador(out,clk,enb,data);
+module deserializador #(parameter BITS=`BITS-1) (clk,data,DK,out_DK,out);
 
-	//Entradas 
-	input clk;
-	input out;
-	
+	//Entradas
+	input clk; 
+	input data;
+	input DK;
+	//Salidas
+	output reg [BITS:0] out_DK;
+	output reg [BITS:0] out;	//	Data
+
 	//Variables Temporales / Registros Internos
-	reg rst=1;
-	reg [7:0] temp;
-	reg [3:0] counter;
-	
-	//Salida
-	output reg enb;
-	output reg [7:0] data;	//	Data
+	reg [3:0] counter = 0;
+
+always @(negedge clk)
+	if(counter<=BITS) counter = counter+1;
+	else		      counter = 0;
 
 //Control del Path.
-always @(posedge clk or negedge rst ) begin
-	if (rst==1) begin
-	//temp <= 8'b0000
-	counter <= 4'b0000;
-	end
-	//Cuenta de 0 a 8. //Lectura
-	else begin
-		temp[counter]<= out;
-		counter <= counter + 1'b1;
-		end
-	if (counter == 4'b0111) begin // Restaurar la Cuenta.
-	enb=1;
-	rst <= 1'b1;		
-	counter <= 4'b0000;
-	data <= temp;
-	end
-	else
-		rst = 0;
+always @(posedge clk) begin
+	out   [BITS-counter] = data;
+	out_DK[BITS-counter] = DK;
 end
 
 endmodule

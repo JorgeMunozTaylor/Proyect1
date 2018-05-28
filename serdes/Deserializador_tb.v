@@ -1,18 +1,22 @@
 //IE-0523 Circuitos Digitales II
 //Proyecto1. Test Bench del Deserializador de 9 bits
 //I Ciclo 2018
-
+`ifndef BITS
+	`define BITS 8
+`endif
 //Definicion del modulo
 module testbench();
 
-wire [7:0] data;
-wire enb;
-wire out;
-wire clk;
+localparam BITS = `BITS-1;
 
+wire data;
+wire [BITS:0] out_DK;
+wire [BITS:0] out;
+wire clk;
+wire DK;
 //Intanciando Modulos
-tester test2(enb,data,clk,out);
-deserializador deser1(out,clk,enb,data);
+tester test2(clk,data,DK,out_DK,out);
+deserializador deser1(clk,data,DK,out_DK,out);
 
 //Resultados en Terminal
 initial

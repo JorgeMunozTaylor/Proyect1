@@ -3,11 +3,11 @@
 //I Ciclo 2018
 
 //Modulo Tester 
-module tester(enb,data,clk,out);
+module tester(enb,data,clk,DK,out);
 	//Salidas.
 	output reg clk,enb;
 	output reg [7:0] data;
-	input out;
+	input DK,out;
 
 //Señal de Reloj / Frecuencia del reloj
 	always #2 clk = !clk;
@@ -16,10 +16,15 @@ initial begin
 	//Valores Iniciales
 	clk =0;
 	enb =1;
-	
+end
+
+initial enb = 1;
+
+initial begin
 	$display("Inicia Prueba, Cargamos 10001000");
 	data = 8'b10001000; // de 8 bits.
 	#50; //Retardo
 	$finish;
     end
+	
 endmodule
