@@ -12,7 +12,10 @@ module test
     input       [BITS:0]    LANE1,
     input       [BITS:0]    LANE2,
     input       [BITS:0]    LANE3,
-    input                   o_DK
+    input                    DK_0,
+    input                    DK_1,
+    input                    DK_2,
+    input                    DK_3
 );
     localparam [7:0]    STP     = 8'hfb,
                         SDP     = 8'h5c,

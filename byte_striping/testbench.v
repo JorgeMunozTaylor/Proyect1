@@ -25,7 +25,10 @@ module tb;
     wire    [BITS:0]                LANE1;
     wire    [BITS:0]                LANE2;
     wire    [BITS:0]                LANE3;
-    wire                            o_DK;
+    wire                            DK_0;
+    wire                            DK_1;
+    wire                            DK_2;
+    wire                            DK_3;
 
     test prueba_bs(
         .CLK    (CLK),
@@ -35,7 +38,10 @@ module tb;
         .LANE1  (LANE1),
         .LANE2  (LANE2),
         .LANE3  (LANE3),
-        .o_DK   (o_DK)
+        .DK_0   (DK_0),
+        .DK_1   (DK_1),
+        .DK_2   (DK_2),
+        .DK_3   (DK_3)
     );
 
     byte_strip byte_striping(
@@ -46,7 +52,10 @@ module tb;
         .LANE1  (LANE1),
         .LANE2  (LANE2),
         .LANE3  (LANE3),
-        .o_DK   (o_DK)
+        .DK_0   (DK_0),
+        .DK_1   (DK_1),
+        .DK_2   (DK_2),
+        .DK_3   (DK_3)
     );
 
 endmodule
