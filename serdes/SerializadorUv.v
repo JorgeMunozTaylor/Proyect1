@@ -1,19 +1,16 @@
 //IE-0523 Circuitos Digitales II
 //Proyecto1. Serializadodor del Regitro Desplazable de 8 bits	
 //I Ciclo 2018
-`ifndef 
-	`define BITS 8
-`endif 
 
-module serializador #(parameter BITS=`BITS-1) (enb,data,clk,DK,out);
+module serializador (enb,data,clk,DK,out);
 
 	//Entradas // enb =1 palabra valida, enb=0 invalida
 	input clk, enb; 
-	input [BITS:0] data;	//	Data
+	input [7:0] data;	//	Data
 	
 	//Variables Temporales / Registros Internos
 	reg rst=1;
-	reg [BITS:0] temp;
+	reg [7:0] temp;
 	reg [3:0] counter;
 	
 	//Salida
