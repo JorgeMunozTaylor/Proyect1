@@ -22,7 +22,7 @@ module prueba_demux (
     reg [8*3:0] ctrl;
 
     initial begin
-        $dumpfile("FTM_test.vcd");	// Nombre de archivo del "dump"
+        $dumpfile("demux_test.vcd");	// Nombre de archivo del "dump"
         $dumpvars;		          	// Directiva para "dumpear" variables
         $display ("Prueba Demux\n");
         $display ("\t\t\tclk_250k\tValid\tData\t\tDemuxed\t\tControl");
