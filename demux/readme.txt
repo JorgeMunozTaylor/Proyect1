@@ -11,4 +11,4 @@
 -> git status (para verificar si esta de acuerdo con lo que se va a subir)
 
 -> git commit -m "algun texto descriptivo"
--> git push git
+-> git push 
