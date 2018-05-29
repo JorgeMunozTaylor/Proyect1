@@ -8,12 +8,16 @@ module prueba_demux (
     output reg clk_1m,
     output reg clk_250k
 );
-    parameter [7:0] COM = 8'hbc,
-                    SKP = 8'h1c,
-                    STP = 8'hfb,
-                    SDP = 8'h5c,
-                    END = 8'hfd,
-                    IDL = 8'h7c;
+    parameter [7:0] STP = 8'hfb,//Start and End Characters
+                    SDP = 8'h5c,//Start and End Characters
+                    END = 8'hfd,//Start and End Characters
+                    EDB = 8'hfe,//Start and End Characters
+
+                    SKP = 8'h1c,//Ordered-Sets
+                    IDL = 8'h7c,//Ordered-Sets
+                    FTS = 8'h3c,//Ordered-Sets
+
+                    COM = 8'hbc;//COM
 
     reg [8*3:0] ctrl;
 
@@ -151,27 +155,41 @@ module prueba_demux (
     ///////////////////////////////valor de ctrl
     always @(*) begin
         case (control)
-        COM: begin
-          ctrl = "COM";
-        end
-        SKP: begin
-          ctrl = "SKP";
-        end
-        STP: begin
-          ctrl = "STP";
-        end
-        SDP: begin
-          ctrl = "SDP";
-        end
-        END: begin
-          ctrl = "END";
-        end
-        8'b0: begin
-          ctrl <= "0";
-        end
-        default: begin
-          ctrl <= "error";
-        end
+        //Start and End Characters
+          STP: begin
+            ctrl = "STP";
+          end
+          SDP: begin
+            ctrl = "SDP";
+          end
+          END: begin
+            ctrl = "END";
+          end
+          EDB: begin
+            ctrl = "EDB";
+          end
+        //Ordered-Sets
+          SKP: begin
+            ctrl = "SKP";
+          end
+          IDL: begin
+            ctrl = "IDL";
+          end
+          FST: begin
+            ctrl = "FST";
+          end
+        //COM
+          COM: begin
+            ctrl = "COM";
+          end
+        //Default Case - Transmit Data Buffer
+          8'b0: begin
+            ctrl <= "0";
+          end
+        //ERROR
+          default: begin
+            ctrl <= "error";
+          end
       endcase
     end
 
