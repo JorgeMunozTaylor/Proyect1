@@ -17,46 +17,33 @@ module demux (
 
                   COM = 8'hbc;//COM
 
-  always @(posedge clk) begin
-    if (valid_in) begin
-      
+  always @(posedge clk or negedge clk) begin
+    if (valid_in == 0)
       case (data_in)
       //Start and End Characters
-        STP: begin
-          control <= STP;
-        end
-        SDP: begin
-          control <= SDP;
-        end
-        END: begin
-          control <= END;
-        end
-        EDB: begin
-          control <= EDB;
-        end
+        STP: control <= STP;
+        
+        SDP: control <= SDP;
+        
+        END: control <= END;
+        
+        EDB: control <= EDB;
+        
       //Ordered-Sets
-        SKP: begin
-          control <= SKP;
-        end
-        IDL: begin
-          control <= IDL;
-        end
-        FTS: begin
-          control <= FTS;
-        end
+        SKP: control <= SKP;
+        
+        IDL: control <= IDL;
+        
+        FTS: control <= FTS;
+        
       //COM
-        COM: begin
-          control <= COM;
-        end
-      //default case
-        default: begin
-          data_out <= data_in;
-          control <= 8'b0;
-        end
+        COM: control <= COM;
+    
       endcase
       
-    end else begin
-      data_out <= 8'b0;
+    else begin
+          data_out <= data_in;
+          control <= 8'b0;
     end
   end
 

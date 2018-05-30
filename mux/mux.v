@@ -10,20 +10,8 @@ module mux (
   output reg [7:0] D_out,
   output reg valid
   );
-  /*
-  parameter [7:0] STP = 8'hfb,//Start and End Characters
-                  SDP = 8'h5c,//Start and End Characters
-                  END = 8'hfd,//Start and End Characters
-                  EDB = 8'hfe,//Start and End Characters
 
-                  SKP = 8'h1c,//Ordered-Sets
-                  IDL = 8'h7c,//Ordered-Sets
-                  FTS = 8'h3c,//Ordered-Sets
-
-                  COM = 8'hbc;//COM
-  */
-
-  always @(posedge clk)begin
+  always @(posedge clk or negedge clk)begin
     case (control)
       2'b00: begin//Transmit Data Buffer - D_in
         D_out <= D_in;

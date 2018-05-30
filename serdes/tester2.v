@@ -8,7 +8,7 @@
 module tester #(parameter BITS =`BITS-1) (clk,data,DK,out_DK,out);
 
 	//Entradas.
-	input [BITS:0] out_DK;
+	input out_DK;
 	input [BITS:0] out;
 	//Salidas.
 	output reg clk,DK;
@@ -44,7 +44,7 @@ initial begin
     end
 
 initial begin
-	DK =0;
+	DK =1;/*
 	#1;
 	DK =0;
 	#2;
@@ -60,7 +60,7 @@ initial begin
 	#2;
 	DK =1;
 	#2;
-	DK =0;
+	DK =0;*/
 	#60; 
 end
 endmodule

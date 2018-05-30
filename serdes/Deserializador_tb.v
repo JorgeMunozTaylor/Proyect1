@@ -10,7 +10,7 @@ module testbench();
 localparam BITS = `BITS-1;
 
 wire data;
-wire [BITS:0] out_DK;
+wire out_DK;
 wire [BITS:0] out;
 wire clk;
 wire DK;

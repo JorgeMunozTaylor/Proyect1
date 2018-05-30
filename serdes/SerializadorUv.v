@@ -7,34 +7,22 @@ module serializador (enb,data,clk,DK,out);
 	//Entradas // enb =1 palabra valida, enb=0 invalida
 	input clk, enb; 
 	input [7:0] data;	//	Data
-	
-	//Variables Temporales / Registros Internos
-	reg rst=1;
-	reg [7:0] temp;
-	reg [3:0] counter;
-	
 	//Salida
-	output reg out, DK;
+	output reg out;
+	output DK;
 
+	//Variables Temporales / Registros Internos
+	reg [3:0] counter = 7;
+
+	assign DK = enb;
 //Control del Path.
-always @(posedge clk or negedge rst ) begin
-	if (rst==1) begin
-	temp <= data;
-	counter <= 4'b0000;
-	end
+always @(negedge clk or posedge clk)
+	if (counter != 7)	counter <= counter + 1'b1;
 	//Cuenta de 0 a 8.
-	else begin
-		out <= temp[7-counter];
-		DK	<= enb;
-		counter <= counter + 1'b1;
-		end
-	if (counter == 4'b0111) begin
-	rst 	<= 1'b1;		// Restaurar la Cuenta.
-	counter <= 4'b0000;
-	end
-	else
-		rst = 0;
-end
+	else counter = 0;
 
+	always @(data or counter)
+		out <= data[7-counter];
+		
 endmodule
 
