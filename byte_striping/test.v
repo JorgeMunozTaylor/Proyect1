@@ -1,23 +1,19 @@
 //--Jorge Munoz Taylor
 module test
-#(
-    parameter LANES = `LANES,
-    parameter BITS  = `BITS-1
-)
 (
     output  reg             CLK,
-    output  reg [BITS:0]    D,
+    output  reg [7:0]    D,
     output  reg             DK,
-    input       [BITS:0]    LANE0,
-    input       [BITS:0]    LANE1,
-    input       [BITS:0]    LANE2,
-    input       [BITS:0]    LANE3,
+    input       [7:0]    LANE0,
+    input       [7:0]    LANE1,
+    input       [7:0]    LANE2,
+    input       [7:0]    LANE3,
     input                    DK_0,
     input                    DK_1,
     input                    DK_2,
     input                    DK_3,
 
-    input       [BITS:0]     U_D,
+    input       [7:0]     U_D,
     input                    U_DK
 );
     localparam [7:0]    STP     = 8'hfb,
@@ -29,31 +25,34 @@ module test
                         IDL     = 8'h7c;
 
     initial CLK     = 0;
-    always  #1 CLK  = !CLK;
+    always  #2000 CLK  = !CLK;
 
     initial 
     repeat(10)
         begin
-            D = STP;
-        #2  D = 00110011;
-        #2  D = 11111111;
-        #2  D = END;
-        #2  D = SDP;
-        #2  D = 01010101;
-        #2  D = 01000001;
-        #2  D = EDB;
-        #2;
+               D = STP;
+        #3000  D = 00110011;
+        #2000  D = 11111111;
+        #2000  D = END;
+        #2000  D = SDP;
+        #2000  D = 01010101;
+        #2000  D = 01000001;
+        #2000  D = EDB;
+        #2000;
     end
 
     initial 
     repeat(10)
     begin
-            DK = 0;
-        #2  DK = 1;
-        #4  DK = 0;
-        #4  DK = 1;
-        #4  DK = 0;
-        #2;
+               DK = 0;
+        #3000  DK = 1;
+        #2000  DK = 1;
+        #2000  DK = 0;
+        #2000  DK = 0;
+        #2000  DK = 1;
+        #2000  DK = 1;
+        #2000  DK = 0;
+        #2000;
     end
 
     initial begin
@@ -61,5 +60,5 @@ module test
         $dumpvars;
     end
 
-    initial #300 $finish;
+    initial #30000 $finish;
 endmodule

@@ -1,6 +1,6 @@
-byte_striping: simulacion clean
+simulacion: bs clean
 
-simulacion:
+bs:
 	iverilog -o OUT ./testbench.v
 	vvp OUT
 	gtkwave simulacion.vcd 

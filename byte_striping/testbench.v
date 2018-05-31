@@ -1,4 +1,9 @@
 //--Jorge Munoz Taylor
+`ifndef TIMESCALE
+    `define TIMESCALE
+    `timescale 1ns/1ps
+`endif
+
 `ifndef BYTE_STRIPING_V
     `define BYTE_STRIPING_V
     `include "byte_striping.v"
@@ -14,28 +19,22 @@
     `include "test.v"
 `endif
 
-`ifndef TIMESCALE
-    `define TIMESCALE
-    `timescale 1ns/1ps
-`endif
 
 module tb;
-    //localparam LANES = `LANES;
-    localparam BITS  = `BITS-1; 
 
     wire                CLK;
-    wire    [BITS:0]    D;
+    wire    [7:0]    D;
     wire                DK;
-    wire    [BITS:0]    LANE0;
-    wire    [BITS:0]    LANE1;
-    wire    [BITS:0]    LANE2;
-    wire    [BITS:0]    LANE3;
+    wire    [7:0]    LANE0;
+    wire    [7:0]    LANE1;
+    wire    [7:0]    LANE2;
+    wire    [7:0]    LANE3;
     wire                DK_0;
     wire                DK_1;
     wire                DK_2;
     wire                DK_3;
 
-    wire    [BITS:0]    u_d;
+    wire    [7:0]    u_d;
     wire                u_dk;
 
     test prueba_bs(
