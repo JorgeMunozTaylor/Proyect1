@@ -5,6 +5,7 @@ module byte_strip
     input               CLK,
     input       [7:0]   D,
     input               DK,
+
     output reg  [7:0]   LANE0,
     output reg  [7:0]   LANE1,
     output reg  [7:0]   LANE2,
@@ -14,17 +15,11 @@ module byte_strip
     output reg          DK_2=0,
     output reg          DK_3=0
 );
-    localparam [7:0]    STP     = 8'hfb,
-                        SDP     = 8'h5c,
-                        END     = 8'hfd,
-                        EDB     = 8'hfe,
-                        COM     = 8'hbc,
-                        SKP     = 8'h1c,
-                        IDL     = 8'h7c;
-
-    reg [1:0]   CONTADOR_DE_LANES = 2'b11;
+    reg [9:0]   div_frec;
     reg [7:0]   ACT_LANE [3:0];
-    reg [3:0]   ACT_DK = 0;
+    reg         n_CLK;
+    reg [1:0]   CONTADOR_DE_LANES = 2'b11;
+    reg [3:0]   ACT_DK            = 0;
 
     always @(negedge CONTADOR_DE_LANES == 2'b11) begin
         LANE0 <= ACT_LANE [0];
@@ -38,40 +33,42 @@ module byte_strip
         DK_3  <= ACT_DK   [3];
     end
     
-    always @(D!=D)
-        if(CONTADOR_DE_LANES <=3 )  CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
-        else                        CONTADOR_DE_LANES <= 0; 
-    
-    always @(negedge CLK or posedge CLK) //begin
-        
+    always @(posedge CLK or negedge CLK) begin //Multiplicador de frecuencias
+        div_frec = 0;
+        n_CLK    = 0;
+        repeat(499) 
+        if(div_frec!=499) begin
+            #4 div_frec <= div_frec + 1;
+            n_CLK       <= !n_CLK;
+            end    
+    end
+           
+    always @(negedge div_frec or posedge div_frec)
+        if     (div_frec == 0)   CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 125) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 250) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 375) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+      
+    always @(CONTADOR_DE_LANES)
         case(CONTADOR_DE_LANES)
             2'b00: begin
-                ACT_LANE[0] <= D;
-                ACT_DK  [0] <= DK;
+                ACT_LANE[0] = D;
+                ACT_DK  [0] = DK;
                 end
 
             2'b01: begin
-                ACT_LANE[1] <= D;
-                ACT_DK  [1] <= DK;
+                ACT_LANE[1] = D;
+                ACT_DK  [1] = DK;
                 end
 
             2'b10: begin
-                ACT_LANE[2] <= D;
-                ACT_DK  [2] <= DK;
+                ACT_LANE[2] = D;
+                ACT_DK  [2] = DK;
                 end
 
             2'b11: begin
-                ACT_LANE[3] <= D;
-                ACT_DK  [3] <= DK;
+                ACT_LANE[3] = D;
+                ACT_DK  [3] = DK;
                 end
-
-            default:    begin
-                        ACT_LANE[0] <= ACT_LANE[0];
-                        ACT_LANE[1] <= ACT_LANE[1];
-                        ACT_LANE[2] <= ACT_LANE[2];
-                        ACT_LANE[3] <= ACT_LANE[3];
-                        ACT_DK   <= ACT_DK;
-                        end
-        endcase
-           
+        endcase       
 endmodule

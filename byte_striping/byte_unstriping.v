@@ -16,29 +16,46 @@ module byte_unstrip
     output reg          DK
 );
  
-    reg   [1:0] CONTADOR_DE_LANES=2'b11;
-    wire  [7:0] ACT_LANE [3:0];   
-    reg         ACT_DK   [3:0];
+    reg [1:0] CONTADOR_DE_LANES=2'b11;
+    reg [9:0] div_frec;
+    reg       n_CLK;
 
-    assign      ACT_LANE[0] = LANE0,
-                ACT_LANE[1] = LANE1,
-                ACT_LANE[2] = LANE2,
-                ACT_LANE[3] = LANE3;
-
-    always @(posedge CLK or negedge CLK) begin
-        if( LANE0 || LANE1 || LANE2 || LANE3 )
-            CONTADOR_DE_LANES = CONTADOR_DE_LANES+1;
-        else CONTADOR_DE_LANES = 0;
+    always @(posedge CLK or negedge CLK) begin //Multiplicador de frecuencias
+        div_frec = 0;
+        n_CLK    = 0;
+        repeat(499) 
+        if(div_frec!=499) begin
+            #4 div_frec <= div_frec + 1;
+            n_CLK       <= !n_CLK;
+            end    
     end
 
-    always @(posedge CLK or negedge CLK) begin
-            if (CONTADOR_DE_LANES!=3) begin
-                D  = ACT_LANE[CONTADOR_DE_LANES];
-                DK = ACT_DK  [CONTADOR_DE_LANES];
-                //CONTADOR_DE_LANES = CONTADOR_DE_LANES+1;
-            end
-        //else CONTADOR_DE_LANES = 0;    
-    
-    end
+    always @(negedge div_frec or posedge div_frec)
+        if     (div_frec == 0)   CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 125) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 250) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
+        else if(div_frec == 375) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
 
+    always @(*)
+        case(CONTADOR_DE_LANES)
+            2'b00: begin
+                D = LANE0;
+                DK= DK_0;
+                end
+
+            2'b01: begin
+                D = LANE1; 
+                DK= DK_1;
+                end
+
+            2'b10: begin
+                D = LANE2; 
+                DK= DK_2; 
+                end
+
+            2'b11: begin
+                D = LANE3; 
+                DK= DK_3; 
+                end
+        endcase       
 endmodule
