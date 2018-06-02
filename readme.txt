@@ -10,3 +10,4 @@ Para compilar el codigo siga los siguientes pasos:
       make sintetizado   (Ejecutara la simulacion del PHY sintetizado en YOSYS)
       make clean         (Elimina los archivos creados)
       
+ Tanto la BITACORA como el REPORTE estan incluidos en la raiz (carpeta Proyect1) en formato PDF.
