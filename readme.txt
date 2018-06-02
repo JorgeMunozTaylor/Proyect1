@@ -1,17 +1,12 @@
-//--
+//--Jorge Munoz Taylor
 
-Para los relojs de las secciones del programa tomar en cuenta lo siguiente:
+Para compilar el codigo siga los siguientes pasos:
 
-Para poner el tiempo en escala de ns:
-
-`timescale 	1ns / 1ps
-
-
-Para frecuencia de 1MHz (mux y demux)
-#500 clk <= ~clk;
-
-Para frecuencia de 250kHz (bit striping y de-bit striping)
-#2000 clk <= ~clk;
-
-Para frecuencia de 2MHz ( serie-paralelo y paralelo-serie)
-#250 clk <= ~clk;
+1- Clone la carpeta del proyecto usando el comando "git clone https://github.com/JorgeMunozTaylor/Proyect1.git"
+2- Ubiquese en la carpeta raiz "Project1"
+3- Puede ejecutar 1 de los comandos siguientes:
+    
+      make conductual    (Ejecutara la simulacion del PHY conductual)
+      make sintetizado   (Ejecutara la simulacion del PHY sintetizado en YOSYS)
+      make clean         (Elimina los archivos creados)
+      
