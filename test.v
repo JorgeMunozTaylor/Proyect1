@@ -33,19 +33,18 @@ module prueba_phy (
     always #250  CLK2 = !CLK2;
 
     initial begin
-             D = 8'b11111111;
-        #500 //D = 8'b00000001;
+             D = 8'b00000001;
+        #500 
         #500 D = 8'b00000010;
-        #500 //D = 8'b00000100;
+        #500 
 
-        //#500 //D = 8'b00001000;
         #500 D = 8'b00010000;
         #500
         #500 D = 8'b00100000;
         #500 D = 8'b01000000;
-        #500 //D = 8'b10000000;
+        #500 
 
-        #500 //D = 8'b00000000;
+        #500 
         #500 D = 8'b00000001;
         #500 D = 8'b00000010;
         #500 D = 8'b00000100;
@@ -55,7 +54,7 @@ module prueba_phy (
         #500 D = 8'b00100000;
         #500 D = 8'b01000000;
         #500 D = 8'b10000000;
-        
+
         #500 D = 8'b00000000;
     end
 
@@ -64,11 +63,46 @@ module prueba_phy (
         #500;
         #500;
         #500 START_END = END;
+
         #500 START_END = SDP;
         #500;
         #500;
-        #500 START_END = EDB;
+        #500;
 
+        #500;
+        #500;
+        #500;
+        #500 START_END      = END;
+        
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+
+        #500 ORDERED_SET    = SKP;
+        #500;
+        #500;
+        #500;
+
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+        #500 LOG_COM        = COM;
+
+        #500 ORDERED_SET    = IDL;
+        #500;
+        #500;
+        #500;
+    
+        #500;
+        #500;
+        #500;
+        #500;
+
+        #500;
+        #500;
+        #500;
+        #500;
     end
 
     initial begin
@@ -83,13 +117,47 @@ module prueba_phy (
              CONTROL = 2'b01;
         #500 CONTROL = 2'b00;
         #500 CONTROL = 2'b00;
-        #500 CONTROL = 2'b01;
+        #500 CONTROL = 2'b01
+        ;
         #500 CONTROL = 2'b01;
         #500 CONTROL = 2'b00;
         #500 CONTROL = 2'b00;
+        #500 CONTROL = 2'b00;
+
+        #500 CONTROL = 2'b00;
+        #500 CONTROL = 2'b00;
+        #500 CONTROL = 2'b00;
         #500 CONTROL = 2'b01;
+
+        #500 CONTROL = 2'b11;
+        #500;
+        #500;
+        #500;
+
         #500 CONTROL = 2'b10;
-        #500 CONTROL = 2'b00;
+        #500 CONTROL = 2'b10;
+        #500 CONTROL = 2'b10;
+        #500;
+
+        #500 CONTROL = 2'b11;
+        #500;
+        #500;
+        #500;
+
+        #500 CONTROL = 2'b10;
+        #500 CONTROL = 2'b10;
+        #500 CONTROL = 2'b10;
+        #500;
+
+        #500;
+        #500;
+        #500;
+        #500;
+
+        #500;
+        #500;
+        #500;
+        #500;
 
     end
 

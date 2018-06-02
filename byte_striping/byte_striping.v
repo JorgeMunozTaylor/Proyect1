@@ -86,31 +86,31 @@ module byte_strip
         endcase       
     else begin
         if (D==COM) begin
-                        ACT_LANE[0] = COM;
-                        ACT_LANE[1] = COM;
-                        ACT_LANE[2] = COM;
-                        ACT_LANE[3] = COM;
+                        ACT_LANE[0] <= COM;
+                        ACT_LANE[1] <= COM;
+                        ACT_LANE[2] <= COM;
+                        ACT_LANE[3] <= COM;
                     end
 
         else if(D==SKP) begin
-                        ACT_LANE[0] = SKP;
-                        ACT_LANE[1] = SKP;
-                        ACT_LANE[2] = SKP;
-                        ACT_LANE[3] = SKP;
+                        ACT_LANE[0] <= SKP;
+                        ACT_LANE[1] <= SKP;
+                        ACT_LANE[2] <= SKP;
+                        ACT_LANE[3] <= SKP;
                         end
 
         else if(D==IDL) begin
-                        ACT_LANE[0] = IDL;
-                        ACT_LANE[1] = IDL;
-                        ACT_LANE[2] = IDL;
-                        ACT_LANE[3] = IDL;
+                        ACT_LANE[0] <= IDL;
+                        ACT_LANE[1] <= IDL;
+                        ACT_LANE[2] <= IDL;
+                        ACT_LANE[3] <= IDL;
                         end
 
         else if(D==FTS) begin
-                        ACT_LANE[0] = FTS;
-                        ACT_LANE[1] = FTS;
-                        ACT_LANE[2] = FTS;
-                        ACT_LANE[3] = FTS;
+                        ACT_LANE[0] <= FTS;
+                        ACT_LANE[1] <= FTS;
+                        ACT_LANE[2] <= FTS;
+                        ACT_LANE[3] <= FTS;
                         end
     end
 
