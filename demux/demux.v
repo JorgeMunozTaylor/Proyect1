@@ -17,7 +17,7 @@ module demux (
 
                   COM = 8'hbc;//COM
 
-  always @(posedge clk or negedge clk) begin
+  always @(clk) begin//(posedge clk or negedge clk) begin
     if (valid_in == 0)
       case (data_in)
       //Start and End Characters

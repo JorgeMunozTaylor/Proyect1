@@ -16,7 +16,7 @@ module serializador (enb,data,clk,DK,out);
 
 	assign DK = enb;
 //Control del Path.
-always @(negedge clk or posedge clk)
+always @(clk) //(negedge clk or posedge clk)
 	if (counter != 7)	counter <= counter + 1'b1;
 	//Cuenta de 0 a 8.
 	else counter = 0;

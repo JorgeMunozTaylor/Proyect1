@@ -19,18 +19,20 @@ module byte_unstrip
     reg [1:0] CONTADOR_DE_LANES=2'b11;
     reg [9:0] div_frec;
     reg       n_CLK;
+    integer i;
 
-    always @(posedge CLK or negedge CLK) begin //Multiplicador de frecuencias
+    always @(CLK) begin//(posedge CLK or negedge CLK) begin //Multiplicador de frecuencias
         div_frec = 0;
         n_CLK    = 0;
-        repeat(499) 
+        
+        for(i=0;i<=498;i=i+1)
         if(div_frec!=499) begin
             #4 div_frec <= div_frec + 1;
             n_CLK       <= !n_CLK;
             end    
     end
 
-    always @(negedge div_frec or posedge div_frec)
+    always @(div_frec)//(negedge div_frec or posedge div_frec)
         if     (div_frec == 0)   CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
         else if(div_frec == 125) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;
         else if(div_frec == 250) CONTADOR_DE_LANES <= CONTADOR_DE_LANES+1;

@@ -14,7 +14,7 @@ module mux (
   reg [7:0] temp [15:0];
   reg [5:0] contador = 0;
 
-  always @(posedge clk or negedge clk) begin
+  always @(clk) begin//(posedge clk or negedge clk) begin
     case (control)
       2'b00: begin//Transmit Data Buffer - D_in
               D_out <= D_in;

@@ -1,0 +1,7 @@
+`include "byte_striping/byte_striping.v"
+`include "byte_striping/byte_unstriping.v"
+`include "demux/demux.v"
+`include "mux/mux.v"
+`include "serdes/SerializadorUv.v"
+`include "serdes/Deserializador.v"
+`include "PHY.v"

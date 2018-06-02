@@ -27,7 +27,8 @@ module deserializador (clk,data,DK,out_DK,out);
 	reg [3:0] counter = 7;
 	reg [7:0] temp;
 	
-	always @(negedge clk or posedge clk)
+	//always @(negedge clk or posedge clk)
+	always @(clk)
 		if (counter != 7) counter <= counter + 1'b1;
 		//Cuenta de 0 a 8.
 		else counter <= 0;

@@ -153,7 +153,7 @@ module prueba_phy (
     end
 
     initial begin
-      $dumpfile("PCIE.vcd");
+      $dumpfile("PCIE_sintetizado.vcd");
       $dumpvars;
       #20000 $finish;
     end
