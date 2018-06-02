@@ -1,3 +1,6 @@
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
 
 module PCIE_PHY(
     input           CLK0,
@@ -11,12 +14,10 @@ module PCIE_PHY(
 
     input  [1:0]    CONTROL,
     output [7:0]    DATA_OUT,
-    output [7:0]    CONTROL_OUT,
-    output          ERROR_DLL
+    output [7:0]    CONTROL_OUT
 );
     wire [7:0] cable_d_out;
     wire       cable_valid;
-    wire       cable_error;
 
     mux phy_mux (
         .clk        (CLK0), //input clk,
@@ -44,8 +45,7 @@ module PCIE_PHY(
         .DK_0       (cable_dk[0]),     //output                     DK_0,
         .DK_1       (cable_dk[1]),     //output                     DK_1,
         .DK_2       (cable_dk[2]),     //output                     DK_2,
-        .DK_3       (cable_dk[3]),      //output                     DK_3
-        .ERROR_DLL  (cable_error)
+        .DK_3       (cable_dk[3])      //output                     DK_3
     );
 //**************************************************************
 //**************************************************************

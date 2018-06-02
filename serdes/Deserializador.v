@@ -1,6 +1,6 @@
-//IE-0523 Circuitos Digitales II
-//Proyecto1. Deserializadodor de 8 bits	
-//I Ciclo 2018
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
 
 module deserializador (clk,data,DK,out_DK,out);
 
@@ -25,20 +25,52 @@ module deserializador (clk,data,DK,out_DK,out);
                   COM = 8'hbc;//COM
 
 	reg [3:0] counter = 7;
+	reg [3:0] cable_counter = 7;
+	reg 	  count=0; //Permite visualizar COUNTER como un reloj
 	reg [7:0] temp;
-	
-	//always @(negedge clk or posedge clk)
-	always @(clk)
-		if (counter != 7) counter <= counter + 1'b1;
-		//Cuenta de 0 a 8.
-		else counter <= 0;
 
-	always @(data or counter)
-		if (data == COM) temp [7-counter] = data;
-		else temp [7-counter] = data;
+	always @* counter = cable_counter;
+
+//*****************************************************
+	always @(posedge clk)
+		if (counter != 7) begin
+			cable_counter <= cable_counter + 1'b1;
+			count = !count;
+			end
+		//Cuenta de 0 a 8.
+		else begin 
+			cable_counter <= 0;
+			count =!count;
+		end
+
+	always @(negedge clk)
+		if (counter != 7) begin
+			cable_counter <= cable_counter + 1'b1;
+			count = !count;
+			end
+		//Cuenta de 0 a 8.
+		else begin 
+			cable_counter <= 0;
+			count =!count;
+		end
+//*****************************************************
+
+	always @(posedge data)
+		temp [7-counter] = data;
 		
+	always @(negedge data)
+		temp [7-counter] = data;
+	
+	always @(posedge count)
+		temp [7-counter] = data;
+		
+	always @(negedge count)
+		temp [7-counter] = data;
+
+//*****************************************************		
 	always @(posedge counter == 0) begin
 		out <= temp;
 		out_DK <= DK; 	
 		end
+
 endmodule

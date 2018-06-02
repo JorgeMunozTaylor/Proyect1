@@ -1,3 +1,7 @@
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
+
 //*******************************
 //         Parametros
 //*******************************

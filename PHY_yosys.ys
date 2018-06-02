@@ -1,13 +1,9 @@
 read_verilog PHY_yosys.v 
-hierarchy;
-proc;
-opt;
-fsm;
-opt;
-memory;
-opt;
-techmap;
-opt;
+hierarchy
+proc; opt; 
+#fsm; opt; 
+memory; opt
+techmap; opt
 dfflibmap -liberty cmos_cells.lib 
 abc -liberty cmos_cells.lib 
 clean

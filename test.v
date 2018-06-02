@@ -1,3 +1,7 @@
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
+
 module prueba_phy (
     output  reg          CLK0,
     output  reg          CLK1,
@@ -10,8 +14,7 @@ module prueba_phy (
 
     output  reg [1:0]    CONTROL,
     input       [7:0]    DATA_OUT,
-    input       [7:0]    CONTROL_OUT,
-    input                ERROR_DLL
+    input       [7:0]    CONTROL_OUT
 );
     parameter [7:0] STP = 8'hfb,//Start and End Characters
                     SDP = 8'h5c,//Start and End Characters
@@ -105,7 +108,7 @@ module prueba_phy (
     end
 
     initial begin
-             CONTROL = 2'b01;
+             CONTROL = 2'b01;    
         #500 CONTROL = 2'b00;
         #500 CONTROL = 2'b00;
         #500 CONTROL = 2'b01
@@ -152,10 +155,20 @@ module prueba_phy (
 
     end
 
-    initial begin
-      $dumpfile("PCIE.vcd");
-      $dumpvars;
-      #20000 $finish;
-    end
+    `ifdef PHY_V
+        initial begin
+        $dumpfile("PCIE.vcd");
+        $dumpvars;
+        #20000 $finish;
+        end
+    `endif
+
+    `ifdef SYNTH_V
+        initial begin
+        $dumpfile("PCIE_sintetizado.vcd");
+        $dumpvars;
+        #20000 $finish;
+        end
+    `endif
     
 endmodule

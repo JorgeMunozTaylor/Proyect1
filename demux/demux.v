@@ -1,3 +1,7 @@
+//--Modificado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
+
 module demux (
   input valid_in,
   input [7:0] data_in,
@@ -6,7 +10,7 @@ module demux (
   output reg [7:0] control
   );
 
-  parameter [7:0] STP = 8'hfb,//Start and End Characters
+  /*localparam [7:0] STP = 8'hfb,//Start and End Characters
                   SDP = 8'h5c,//Start and End Characters
                   END = 8'hfd,//Start and End Characters
                   EDB = 8'hfe,//Start and End Characters
@@ -15,36 +19,64 @@ module demux (
                   IDL = 8'h7c,//Ordered-Sets
                   FTS = 8'h3c,//Ordered-Sets
 
-                  COM = 8'hbc;//COM
+                  COM = 8'hbc;//COM*/
+  
+  reg [7:0] cable_data;
 
-  always @(clk) begin//(posedge clk or negedge clk) begin
-    if (valid_in == 0)
+  always @* cable_data = data_in;
+
+//**********************************************************
+  always @(posedge clk) 
       case (data_in)
       //Start and End Characters
-        STP: control <= STP;
+        8'hfb: control <= data_in;
         
-        SDP: control <= SDP;
+        8'h5c: control <= data_in;
         
-        END: control <= END;
+        8'hfd: control <= data_in;
         
-        EDB: control <= EDB;
+        8'hfe: control <= data_in;
         
       //Ordered-Sets
-        SKP: control <= SKP;
+        8'h1c: control <= data_in;
         
-        IDL: control <= IDL;
+        8'h7c: control <= data_in;
         
-        FTS: control <= FTS;
+        8'h3c: control <= data_in;
         
       //COM
-        COM: control <= COM;
-    
-      endcase
-      
-    else begin
-          data_out <= data_in;
+        8'hbc: control <= data_in;
+          
+        default: begin
+          data_out <= cable_data;
           control <= 8'b0;
-    end
-  end
-
+        end
+      endcase
+  
+  always @(negedge clk) 
+      case (data_in)
+        8'hfb: control <= data_in;
+        
+        8'h5c: control <= data_in;
+        
+        8'hfd: control <= data_in;
+        
+        8'hfe: control <= data_in;
+        
+      //Ordered-Sets
+        8'h1c: control <= data_in;
+        
+        8'h7c: control <= data_in;
+        
+        8'h3c: control <= data_in;
+        
+      //COM
+        8'hbc: control <= data_in;
+         
+        default: begin
+            data_out <= cable_data;
+            control <= 8'b0;
+            end
+      endcase
+//**********************************************************
 endmodule // demux

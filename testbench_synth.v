@@ -1,3 +1,12 @@
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
+
+//*******************************
+//         Parametros
+//*******************************
+`timescale 1ns/1ps
+
 `ifndef CMOS_CELLS_V
     `define CMOS_CELLS_V
     `include "cmos_cells.v"
@@ -8,11 +17,10 @@
     `include "synth.v"
 `endif
 
-`ifndef TEST_SYNTH_V
-    `define TEST_SYNTH_V
-    `include "test_synth.v"
+`ifndef TEST_V
+    `define TEST_V
+    `include "test.v"
 `endif
-
 
 module testbench_phy;
     wire [2:0] CLK;
@@ -39,8 +47,7 @@ module testbench_phy;
 
         .CONTROL        (control),//input  [1:0]    CONTROL,
         .DATA_OUT       (data_out),//output [7:0]    DATA_OUT,
-        .CONTROL_OUT    (control_out),
-        .ERROR_DLL      (error_dll)
+        .CONTROL_OUT    (control_out)
     );
 
     PCIE_PHY pcie_PHY(
@@ -55,8 +62,7 @@ module testbench_phy;
 
         .CONTROL        (control),//input  [1:0]    CONTROL,
         .DATA_OUT       (data_out),//output [7:0]    DATA_OUT,
-        .CONTROL_OUT    (control_out),//output [7:0]    CONTROL_OUT
-        .ERROR_DLL      (error_dll)
+        .CONTROL_OUT    (control_out)//output [7:0]    CONTROL_OUT
     );
-    
+
 endmodule

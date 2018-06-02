@@ -1,4 +1,7 @@
-//--Jorge Munoz Taylor
+//--Creado por Jorge Munoz Taylor
+//--Circuitos digitales 2
+//--I-2018
+
 `ifndef TIMESCALE
     `define TIMESCALE
     `timescale 1ns/1ps
