@@ -10,7 +10,8 @@ module prueba_phy (
 
     output  reg [1:0]    CONTROL,
     input       [7:0]    DATA_OUT,
-    input       [7:0]    CONTROL_OUT
+    input       [7:0]    CONTROL_OUT,
+    input                ERROR_DLL
 );
     parameter [7:0] STP = 8'hfb,//Start and End Characters
                     SDP = 8'h5c,//Start and End Characters
@@ -35,22 +36,26 @@ module prueba_phy (
              D = 8'b11111111;
         #500 //D = 8'b00000001;
         #500 D = 8'b00000010;
-        #500 D = 8'b00000100;
+        #500 //D = 8'b00000100;
+
         //#500 //D = 8'b00001000;
         #500 D = 8'b00010000;
         #500
         #500 D = 8'b00100000;
         #500 D = 8'b01000000;
         #500 //D = 8'b10000000;
+
         #500 //D = 8'b00000000;
         #500 D = 8'b00000001;
         #500 D = 8'b00000010;
         #500 D = 8'b00000100;
         #500 D = 8'b00001000;
+
         #500 D = 8'b00010000;
         #500 D = 8'b00100000;
         #500 D = 8'b01000000;
         #500 D = 8'b10000000;
+        
         #500 D = 8'b00000000;
     end
 
@@ -91,7 +96,7 @@ module prueba_phy (
     initial begin
       $dumpfile("PCIE.vcd");
       $dumpvars;
-      #10000 $finish;
+      #20000 $finish;
     end
     
 endmodule

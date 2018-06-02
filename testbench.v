@@ -14,6 +14,7 @@ module testbench_phy;
     wire [1:0] control;
     wire [7:0] data_out;
     wire [7:0] control_out; 
+    wire       error_dll;
 
     prueba_phy prueba_PHY(        
         .CLK0           (CLK[0]),//input           CLK0,
@@ -27,7 +28,8 @@ module testbench_phy;
 
         .CONTROL        (control),//input  [1:0]    CONTROL,
         .DATA_OUT       (data_out),//output [7:0]    DATA_OUT,
-        .CONTROL_OUT    (control_out)
+        .CONTROL_OUT    (control_out),
+        .ERROR_DLL      (error_dll)
     );
 
     PCIE_PHY pcie_PHY(
@@ -42,7 +44,8 @@ module testbench_phy;
 
         .CONTROL        (control),//input  [1:0]    CONTROL,
         .DATA_OUT       (data_out),//output [7:0]    DATA_OUT,
-        .CONTROL_OUT    (control_out)//output [7:0]    CONTROL_OUT
+        .CONTROL_OUT    (control_out),//output [7:0]    CONTROL_OUT
+        .ERROR_DLL      (error_dll)
     );
     
 endmodule
